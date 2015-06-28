@@ -13,7 +13,7 @@ The annotation processor converts the special lambda that
 ```#{var}$do``` was an argument.
 
 |before (source)|after|
-|--|--|
+|---|---|
 |let #{lv} = #{rv}|#{var}.bind(#{rv}, #{lv} -> ・・・)|
 |return #{expr}|#{var}.unit( #{expr} )|
 
