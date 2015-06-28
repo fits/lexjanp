@@ -8,7 +8,7 @@ public class LaSample {
 		Optional<Integer> o1 = Optional.of(2);
 		Optional<Integer> o2 = Optional.of(3);
 
-		Opt<Integer> opt = new Opt<>();
+		Opt opt = new Opt();
 
 		Optional<Integer> res = opt$do -> {
 			let a = o1;
@@ -21,12 +21,10 @@ public class LaSample {
 		// Optional[13]
 		System.out.println(res);
 
-		Opt<String> opt2 = new Opt<>();
-
-		Optional<String> res2 = opt2$do -> {
+		Optional<String> res2 = opt$do -> {
 			let a = Optional.of("a");
 			let b = Optional.of("b");
-			let c = opt2$do -> {
+			let c = opt$do -> {
 				let c1 = Optional.of("c1");
 				let c2 = Optional.of("c2");
 				return c1 + "-" + c2;
@@ -36,20 +34,20 @@ public class LaSample {
 		// Optional[ab/c1-c2]
 		System.out.println(res2);
 
-		// Optional[***ba]
-		System.out.println(opt2$do -> {
-			let a = Optional.of("a");
-			let b = Optional.of("b");
+		// Optional[***305a]
+		System.out.println(opt$do -> {
+			let a = Optional.<Object>of("a");
+			let b = Optional.of(305);
 			return "***" + b + a;
 		});
 	}
 
-	static class Opt<T> {
-		public Optional<T> bind(Optional<T> x, Function<T, Optional<T>> f) {
+	static class Opt {
+		public <T> Optional<T> bind(Optional<T> x, Function<T, Optional<T>> f) {
 			return x.flatMap(f);
 		}
 
-		public Optional<T> unit(T v) {
+		public <T> Optional<T> unit(T v) {
 			return Optional.ofNullable(v);
 		}
 	}
